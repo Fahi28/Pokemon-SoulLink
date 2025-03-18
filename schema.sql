@@ -1,7 +1,10 @@
 DROP TABLE IF EXISTS type_assignment;
+DROP TABLE IF EXISTS pokemon_matchup;
 DROP TABLE IF EXISTS pokemon_type;
 DROP TABLE IF EXISTS pokemon;
 DROP TABLE IF EXISTS location;
+DROP TABLE IF EXISTS player;
+
 
 CREATE TABLE pokemon (
     pokemon_id INT GENERATED ALWAYS AS IDENTITY,
@@ -28,6 +31,23 @@ CREATE TABLE location (
     location_id INT GENERATED ALWAYS AS IDENTITY,
     location_name VARCHAR(255) UNIQUE NOT NULL,
     PRIMARY KEY (location_id)
+);
+
+CREATE TABLE player (
+    player_id INT GENERATED ALWAYS AS IDENTITY,
+    player_name VARCHAR(50) UNIQUE NOT NULL,
+    PRIMARY KEY (player_id)
+);
+
+CREATE TABLE pokemon_matchup (
+    matchup_id INT GENERATED ALWAYS AS IDENTITY,
+    location_id INT,
+    player1_pokemon_id INT,
+    player2_pokemon_id INT,
+    FOREIGN KEY (location_id) REFERENCES location(location_id),
+    FOREIGN KEY (player1_pokemon_id) REFERENCES pokemon(pokemon_id),
+    FOREIGN KEY (player2_pokemon_id) REFERENCES pokemon(pokemon_id),
+    PRIMARY KEY (matchup_id)
 );
 
 INSERT INTO pokemon_type

@@ -13,9 +13,8 @@ def csv_to_dataframe() -> pd.DataFrame:
 
 
 def clean_names(pokemon_df: pd.DataFrame) -> pd.DataFrame:
-    """Removes Mega pokemon from dataframe"""
-    return pokemon_df[~pokemon_df['Name'].str.contains(
-        'Mega', case=False, na=False)]
+    """Removes Mega Pokémon from the dataframe"""
+    return pokemon_df[~pokemon_df['Name'].str.contains(r'^Mega\s', case=False, na=False)]
 
 
 def get_connection() -> connection:
